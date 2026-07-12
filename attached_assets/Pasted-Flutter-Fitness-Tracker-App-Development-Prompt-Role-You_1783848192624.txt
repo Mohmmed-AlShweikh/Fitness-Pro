@@ -1,0 +1,587 @@
+Flutter Fitness Tracker App Development Prompt
+Role
+
+You are an experienced Flutter developer. Build a complete Fitness Tracking mobile application using Flutter and Dart.
+
+The goal is to create a professional portfolio-level application with a beautiful modern UI, clean code, and simple understandable architecture.
+
+Do not over-engineer the project.
+The code should be written in a simple way that a normal Flutter developer can understand and maintain.
+
+Avoid unnecessary abstraction and complicated patterns.
+
+Project Name
+
+Create an application called:
+
+FitTrack Pro
+
+A fitness assistant app that helps users track workouts, calories, goals, progress, and health statistics.
+
+Main Requirements
+
+Build the app using:
+
+Flutter
+Latest stable Flutter version
+Dart null safety
+Material 3 design
+State Management
+
+Use:
+
+GetX
+
+For:
+
+Controllers
+Reactive state
+Dependency injection
+Simple app logic
+
+Do not use Bloc, Riverpod, Provider.
+
+Navigation
+
+Use:
+
+go_router
+
+Requirements:
+
+Centralized routes file
+Named routes
+Clean navigation structure
+Support navigation guards if needed
+
+Routes:
+
+/splash
+/onboarding
+/home
+/workouts
+/add-workout
+/goals
+/progress
+/reports
+/profile
+/settings
+Database
+
+Use:
+
+Isar Database
+
+The app must work completely offline.
+
+Create simple models:
+
+User
+UserModel
+
+id
+name
+age
+gender
+height
+weight
+fitnessGoal
+activityLevel
+createdAt
+Workout
+WorkoutModel
+
+id
+title
+category
+duration
+calories
+date
+exercises
+Exercise
+ExerciseModel
+
+name
+sets
+reps
+weight
+Goal
+GoalModel
+
+id
+title
+target
+current
+completed
+date
+Progress
+ProgressModel
+
+id
+weight
+bodyFat
+date
+
+Use Isar CRUD:
+
+Add
+Update
+Delete
+Read
+Search
+UI / Design Requirements
+
+Create a premium fitness application design.
+
+The design should be:
+
+Modern
+Clean
+Beautiful
+Responsive
+Easy to use
+
+Use:
+
+Material 3
+Google Fonts
+Smooth animations
+Rounded cards
+Gradient backgrounds
+Beautiful icons
+Empty states
+Loading states
+
+The UI should look similar to modern fitness apps.
+
+Responsive Design (Important)
+
+The application MUST support all screens:
+
+Small phones
+Normal phones
+Large phones
+Tablets
+Landscape mode
+
+Use:
+
+flutter_screenutil
+
+Create responsive helpers:
+
+Example:
+
+Responsive.isMobile()
+Responsive.isTablet()
+Responsive.isLandscape()
+
+Never use fixed sizes.
+
+Avoid:
+
+width: 300
+height: 200
+
+Use responsive values:
+
+300.w
+200.h
+
+All screens must adapt correctly.
+
+Theme System
+
+Implement:
+
+Light Mode
+
+Professional light colors.
+
+Dark Mode
+
+Professional dark fitness theme.
+
+Use GetX:
+
+ThemeController
+
+Save selected theme locally.
+
+Localization
+
+Support two languages:
+
+English:
+
+en.json
+
+Arabic:
+
+ar.json
+
+Requirements:
+
+Full Arabic RTL support
+Change language instantly
+Save language selection
+
+Use:
+
+GetX Translation
+Application Screens
+1. Splash Screen
+
+Features:
+
+Beautiful logo animation
+Check saved settings
+Navigate automatically
+2. Onboarding
+
+Create 4 beautiful pages:
+
+Page 1:
+
+Welcome to FitTrack Pro
+
+Page 2:
+
+Track your workouts
+
+Page 3:
+
+Monitor calories and goals
+
+Page 4:
+
+Improve your lifestyle
+
+Collect user information:
+
+Name
+Age
+Gender
+Height
+Weight
+Goal
+3. Home Dashboard
+
+Create professional dashboard.
+
+Show:
+
+Daily Summary Card
+Calories burned
+Calories consumed
+Water
+Steps
+Progress Circle
+
+Show:
+
+Daily goal completion percentage
+
+Today Workout Card
+Quick Actions:
+
+Buttons:
+
+Add workout
+Add goal
+Add weight
+4. Workout Management
+
+Users can:
+
+Create workout:
+
+Fields:
+
+Workout name
+Category
+
+Categories:
+
+Chest
+Back
+Legs
+Arms
+Cardio
+Full Body
+
+Exercises:
+
+Each workout contains:
+
+Exercise name
+Sets
+Reps
+Weight
+
+Features:
+
+Add workout
+Edit workout
+Delete workout
+Search
+Filter
+5. Calorie Calculator
+
+Implement:
+
+Calculate:
+
+BMR
+TDEE
+
+Based on:
+
+Age
+Gender
+Height
+Weight
+Activity
+
+Show:
+
+Daily calories:
+
+For:
+
+Weight loss
+Maintain
+Muscle gain
+6. Daily Goals
+
+Users can create goals:
+
+Examples:
+
+Drink water
+Walk steps
+Workout duration
+Calories target
+
+Show:
+
+Progress bar
+Completion percentage
+Streak days
+7. Progress Screen
+
+Use:
+
+fl_chart
+
+Create:
+
+Weight Chart
+
+Line chart
+
+Workout Chart
+
+Bar chart
+
+Calories Chart
+
+Pie chart
+
+Allow adding:
+
+Weight
+Body measurements
+Notes
+8. PDF Reports
+
+Generate professional PDF.
+
+Report contains:
+
+User information:
+
+Name
+Weight
+Height
+
+Statistics:
+
+Total workouts
+Calories burned
+Completed goals
+Progress
+
+Features:
+
+Generate PDF
+Preview PDF
+Share PDF
+
+Packages:
+
+pdf
+printing
+9. Profile Screen
+
+Include:
+
+Profile image
+
+Information:
+
+Name
+Age
+Height
+Weight
+Goal
+
+Calculate:
+
+BMI
+
+Show category:
+
+Normal
+Underweight
+Overweight
+10. Settings
+
+Features:
+
+Theme:
+
+Light
+Dark
+
+Language:
+
+Arabic
+English
+
+Options:
+
+Export data
+Clear data
+About app
+Additional Features
+
+Add:
+
+Workout Timer
+
+Timer during exercise.
+
+Achievements
+
+Examples:
+
+🏆 First Workout
+
+🔥 7 Days Streak
+
+💪 50 Workouts Completed
+
+Reminder System
+
+Notifications:
+
+Workout reminder
+Water reminder
+Folder Structure
+
+Use simple clean structure:
+
+lib
+
+app
+
+core
+
+features
+
+shared
+
+
+
+Example:
+
+features/workouts
+
+controllers
+
+models
+
+views
+
+widgets
+
+services
+
+
+Do not create unnecessary layers.
+
+The developer should easily understand where everything is.
+
+Code Style
+
+Important:
+
+Write code like a professional Flutter developer but keep it simple.
+
+Rules:
+
+Small widgets
+Reusable components
+Clear names
+Avoid huge files
+Avoid unnecessary abstraction
+Add comments only when needed
+Follow Flutter best practices
+Required Packages
+
+Use:
+
+get
+
+go_router
+
+isar
+
+isar_flutter_libs
+
+fl_chart
+
+pdf
+
+printing
+
+flutter_screenutil
+
+google_fonts
+
+shared_preferences
+
+intl
+
+image_picker
+
+lottie
+
+Final Result
+
+The final application should:
+
+✅ Work offline
+✅ Support Arabic and English
+✅ Support Dark and Light mode
+✅ Responsive on all devices
+✅ Have beautiful modern UI
+✅ Store data using Isar
+✅ Use GetX correctly
+✅ Use go_router correctly
+✅ Export PDF reports
+✅ Have charts and analytics
+✅ Be suitable for Google Play Store portfolio
+
+Generate the complete Flutter project with all files, models, controllers, screens, widgets, and configuration.
