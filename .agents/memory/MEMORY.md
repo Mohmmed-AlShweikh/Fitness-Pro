@@ -1,0 +1,4 @@
+- [Flutter Web serving](flutter-web-serving.md) — use dhttpd static server over `flutter run` for instant preview startup
+- [Isar removed — web incompatible](isar-web-incompatible.md) — all persistence uses JSON-over-SharedPreferences via DatabaseService
+- [GetX router fields](getx-router-fields.md) — GetMaterialApp.router needs separate routeInformationParser/routerDelegate/routeInformationProvider, not routerConfig
+- [flutter_screenutil on web](screenutil-web.md) — use `.r` (min ratio) not `.w` for box sizes; `.w` over-scales on wide desktop viewports
