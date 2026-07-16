@@ -11,9 +11,16 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SplashController());
+     final controller = Get.put(SplashController());
+
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    controller.navigate(context);
+  });
+
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: AppColors.gradientPrimary,
@@ -25,11 +32,12 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+
               Container(
                 width: 110.r,
                 height: 110.r,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(28.r),
                 ),
                 child: Icon(
@@ -43,8 +51,10 @@ class SplashScreen extends StatelessWidget {
                     duration: 600.ms,
                     curve: Curves.elasticOut,
                   )
-                  .fadeIn(duration: 400.ms),
+                  .fadeIn(),
+
               SizedBox(height: 24.h),
+
               Text(
                 'FitTrack Pro',
                 style: TextStyle(
@@ -55,19 +65,27 @@ class SplashScreen extends StatelessWidget {
                 ),
               )
                   .animate(delay: 300.ms)
-                  .slideY(begin: 0.4, duration: 500.ms, curve: Curves.easeOut)
+                  .slideY(
+                    begin: 0.4,
+                    duration: 500.ms,
+                    curve: Curves.easeOut,
+                  )
                   .fadeIn(),
+
               SizedBox(height: 8.h),
+
               Text(
                 'Your fitness journey starts here',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 14.sp,
                 ),
               )
                   .animate(delay: 500.ms)
-                  .fadeIn(duration: 500.ms),
+                  .fadeIn(),
+
               SizedBox(height: 40.h),
+
               SizedBox(
                 width: 32.r,
                 height: 32.r,
@@ -77,7 +95,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               )
                   .animate(delay: 800.ms)
-                  .fadeIn(duration: 400.ms),
+                  .fadeIn(),
             ],
           ),
         ),

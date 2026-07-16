@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                         steps: c.dailySteps,
                       )),
 
-                  SizedBox(height: 24.h),
+                  SizedBox(height: 30.h),
 
                   // Progress Circle
                   Obx(() => ProgressCircleWidget(
@@ -106,10 +106,10 @@ class HomeScreen extends StatelessWidget {
                     onAction: () => context.go(AppRoutes.workouts),
                   ),
                   SizedBox(height: 12.h),
-                  Obx(() => TodayWorkoutCard(
+                  TodayWorkoutCard(
                         workouts: c.todayWorkouts,
                         onAdd: () => context.go(AppRoutes.addWorkout),
-                      )),
+                      ),
 
                   SizedBox(height: 24.h),
 
@@ -122,21 +122,21 @@ class HomeScreen extends StatelessWidget {
                         icon: Icons.fitness_center_rounded,
                         label: 'add_workout'.tr,
                         color: AppColors.primary,
-                        onTap: () => context.go(AppRoutes.addWorkout),
+                        onTap: () => context.push(AppRoutes.addWorkout),
                       ),
                       SizedBox(width: 12.w),
                       _QuickAction(
                         icon: Icons.flag_rounded,
                         label: 'add_goal'.tr,
                         color: AppColors.accent,
-                        onTap: () => context.go(AppRoutes.goals),
+                        onTap: () => context.push(AppRoutes.goals),
                       ),
                       SizedBox(width: 12.w),
                       _QuickAction(
                         icon: Icons.monitor_weight_rounded,
                         label: 'add_weight'.tr,
                         color: AppColors.secondary,
-                        onTap: () => context.go(AppRoutes.progress),
+                        onTap: () => context.push(AppRoutes.progress),
                       ),
                     ],
                   ),

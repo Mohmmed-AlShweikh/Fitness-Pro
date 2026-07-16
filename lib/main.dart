@@ -17,7 +17,7 @@ Future<void> main() async {
 
   runApp(
     ScreenUtilInit(
-      designSize: const Size(390, 844),
+      designSize: const Size(411, 914),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => const FitTrackApp(),
