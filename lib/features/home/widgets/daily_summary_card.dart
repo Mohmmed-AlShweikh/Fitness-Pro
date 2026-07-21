@@ -23,11 +23,11 @@ class DailySummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       shrinkWrap: true,
-  physics: const NeverScrollableScrollPhysics(),
-    crossAxisCount: 2,
-    crossAxisSpacing: 12.w,
-    mainAxisSpacing: 12.h,
-    mainAxisExtent: 150.h,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      crossAxisSpacing: 12.w,
+      mainAxisSpacing: 12.h,
+      childAspectRatio: 1.4,
       children: [
         StatTile(
           label: 'calories_burned'.tr,
