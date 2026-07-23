@@ -24,6 +24,7 @@ const Map<String, String> en = {
   'kcal': 'kcal',
   'min': 'min',
   'lbs': 'lbs',
+  'goal': 'Goal',
 
   // Onboarding
   'onboarding_title_1': 'Welcome to FitTrack Pro',
@@ -61,6 +62,8 @@ const Map<String, String> en = {
   'good_evening': 'Good Evening',
   'daily_summary': 'Daily Summary',
   'calories_burned': 'Burned',
+  'burned': 'Burned',
+  'consumed': 'Consumed',
   'calories_consumed': 'Consumed',
   'water_intake': 'Water',
   'steps': 'Steps',
@@ -71,6 +74,18 @@ const Map<String, String> en = {
   'add_workout': 'Add Workout',
   'add_goal': 'Add Goal',
   'add_weight': 'Add Weight',
+  'day_streak': 'Day Streak',
+  'start_streak': 'Start a streak!',
+  'glasses': 'glasses',
+  'quick_log': 'Quick Log',
+  'quick_log_desc': 'Log anything in seconds',
+  'log_water': 'Log Water',
+  'log_meal': 'Log Meal',
+  'log_steps': 'Log Steps',
+  'water_logged': 'Water glass added! 💧',
+  'steps_logged': 'Steps logged!',
+  'meal_logged': 'Meal added!',
+  'steps_hint': 'How many steps?',
 
   // Workouts
   'workouts': 'Workouts',
@@ -96,6 +111,9 @@ const Map<String, String> en = {
   'delete_workout': 'Delete Workout',
   'delete_workout_confirm': 'Are you sure you want to delete this workout?',
   'workout_saved': 'Workout saved successfully!',
+  'pick_from_library': 'Pick from Library',
+  'exercise_library': 'Exercise Library',
+  'custom_exercise': 'Custom Exercise',
 
   // Goals
   'goals': 'Goals',
@@ -110,6 +128,16 @@ const Map<String, String> en = {
   'delete_goal': 'Delete Goal',
   'goal_saved': 'Goal saved!',
   'streak': 'Day Streak',
+  'achievements': 'Achievements',
+  'first_workout': 'First Workout',
+  'first_workout_desc': 'Logged your very first workout!',
+  'streak_7': '7 Day Streak',
+  'streak_7_desc': 'Worked out 7 days in a row!',
+  'workouts_50': '50 Workouts',
+  'workouts_50_desc': 'Completed 50 total workouts!',
+  'goals_10': '10 Goals Done',
+  'goals_10_desc': 'Completed 10 goals!',
+  'locked': 'Locked',
 
   // Progress
   'progress': 'Progress',
@@ -121,6 +149,21 @@ const Map<String, String> en = {
   'notes': 'Notes',
   'no_progress': 'No progress data.\nStart tracking today!',
   'progress_saved': 'Progress entry saved!',
+
+  // Nutrition
+  'nutrition': 'Nutrition',
+  'my_nutrition': 'My Nutrition',
+  'calories_today': 'Today\'s Calories',
+  'meal_name': 'Food / Meal Name',
+  'protein': 'Protein',
+  'carbs': 'Carbs',
+  'fat': 'Fat',
+  'breakfast': 'Breakfast',
+  'lunch': 'Lunch',
+  'dinner': 'Dinner',
+  'snack': 'Snack',
+  'no_meals_yet': 'Nothing logged yet — tap + to add',
+  'calories_today_label': 'Calories Today',
 
   // Reports
   'reports': 'Reports',
@@ -168,23 +211,20 @@ const Map<String, String> en = {
   'data_cleared': 'All data cleared.',
 
   // Timer
-  'timer': 'Workout Timer',
+  'timer': 'Timer',
   'start': 'Start',
   'pause': 'Pause',
   'resume': 'Resume',
   'reset': 'Reset',
   'rest_timer': 'Rest Timer',
+  'workout_timer': 'Workout Timer',
+  'rest_time_up': 'Rest time is up! 💪',
+  'set_rest_time': 'Set Rest Time',
 
-  // Achievements
-  'achievements': 'Achievements',
-  'first_workout': 'First Workout',
-  'first_workout_desc': 'Logged your very first workout!',
-  'streak_7': '7 Day Streak',
-  'streak_7_desc': 'Worked out 7 days in a row!',
-  'workouts_50': '50 Workouts',
-  'workouts_50_desc': 'Completed 50 total workouts!',
-  'goals_10': '10 Goals Done',
-  'goals_10_desc': 'Completed 10 goals!',
+  // Timer states
+  'ready': 'Ready',
+  'paused': 'Paused',
+  'resting': 'Resting…',
 
   // Calorie Calculator
   'calorie_calculator': 'Calorie Calculator',

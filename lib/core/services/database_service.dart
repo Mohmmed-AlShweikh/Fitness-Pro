@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/goals/models/goal_model.dart';
+import '../../features/nutrition/models/meal_model.dart';
 import '../../features/profile/models/user_model.dart';
 import '../../features/progress/models/progress_model.dart';
 import '../../features/workouts/models/workout_model.dart';
@@ -15,6 +16,7 @@ class DatabaseService extends GetxService {
   static const _workoutsKey = 'db_workouts';
   static const _goalsKey = 'db_goals';
   static const _progressKey = 'db_progress';
+  static const _mealsKey = 'db_meals';
   static const _nextIdKey = 'db_next_id';
 
   Future<DatabaseService> init() async {
@@ -67,13 +69,15 @@ class DatabaseService extends GetxService {
     } else {
       list.add(workout);
     }
-    await _prefs.setString(_workoutsKey, jsonEncode(list.map((w) => w.toJson()).toList()));
+    await _prefs.setString(
+        _workoutsKey, jsonEncode(list.map((w) => w.toJson()).toList()));
   }
 
   Future<void> deleteWorkout(int id) async {
     final list = await getWorkouts();
     list.removeWhere((w) => w.id == id);
-    await _prefs.setString(_workoutsKey, jsonEncode(list.map((w) => w.toJson()).toList()));
+    await _prefs.setString(
+        _workoutsKey, jsonEncode(list.map((w) => w.toJson()).toList()));
   }
 
   Future<WorkoutModel?> getWorkoutById(int id) async {
@@ -108,13 +112,15 @@ class DatabaseService extends GetxService {
     } else {
       list.add(goal);
     }
-    await _prefs.setString(_goalsKey, jsonEncode(list.map((g) => g.toJson()).toList()));
+    await _prefs.setString(
+        _goalsKey, jsonEncode(list.map((g) => g.toJson()).toList()));
   }
 
   Future<void> deleteGoal(int id) async {
     final list = await getGoals();
     list.removeWhere((g) => g.id == id);
-    await _prefs.setString(_goalsKey, jsonEncode(list.map((g) => g.toJson()).toList()));
+    await _prefs.setString(
+        _goalsKey, jsonEncode(list.map((g) => g.toJson()).toList()));
   }
 
   // ── Progress ──────────────────────────────────────────────────────────────
@@ -151,10 +157,46 @@ class DatabaseService extends GetxService {
         _progressKey, jsonEncode(list.map((p) => p.toJson()).toList()));
   }
 
+  // ── Meals (Nutrition) ─────────────────────────────────────────────────────
+  Future<List<MealModel>> getMeals() async {
+    final raw = _prefs.getString(_mealsKey);
+    if (raw == null) return [];
+    try {
+      final list = jsonDecode(raw) as List<dynamic>;
+      return list
+          .map((e) => MealModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<void> saveMeal(MealModel meal) async {
+    final list = await getMeals();
+    if (meal.id == 0) meal.id = _nextId();
+    final idx = list.indexWhere((m) => m.id == meal.id);
+    if (idx >= 0) {
+      list[idx] = meal;
+    } else {
+      list.add(meal);
+    }
+    await _prefs.setString(
+        _mealsKey, jsonEncode(list.map((m) => m.toJson()).toList()));
+  }
+
+  Future<void> deleteMeal(int id) async {
+    final list = await getMeals();
+    list.removeWhere((m) => m.id == id);
+    await _prefs.setString(
+        _mealsKey, jsonEncode(list.map((m) => m.toJson()).toList()));
+  }
+
+  // ── Clear all ─────────────────────────────────────────────────────────────
   Future<void> clearAll() async {
     await _prefs.remove(_userKey);
     await _prefs.remove(_workoutsKey);
     await _prefs.remove(_goalsKey);
     await _prefs.remove(_progressKey);
+    await _prefs.remove(_mealsKey);
   }
 }

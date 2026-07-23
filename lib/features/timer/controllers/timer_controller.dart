@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 class TimerController extends GetxController {
   final elapsed = Duration.zero.obs;
   final isRunning = false.obs;
-  final restSeconds = 60.obs; // rest timer countdown
+  final restSeconds = 60.obs;
+  final restTotalSeconds = 60.obs; // track total for progress ring
   final restRunning = false.obs;
 
   Timer? _workoutTimer;
@@ -28,6 +29,7 @@ class TimerController extends GetxController {
   }
 
   void startRest({int seconds = 60}) {
+    restTotalSeconds.value = seconds;
     restSeconds.value = seconds;
     restRunning.value = true;
     _restTimer?.cancel();
@@ -37,14 +39,16 @@ class TimerController extends GetxController {
       } else {
         restRunning.value = false;
         _restTimer?.cancel();
-        Get.snackbar('⏰', 'Rest time is up!',
-            snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('⏰', 'rest_time_up'.tr,
+            snackPosition: SnackPosition.BOTTOM,
+            duration: const Duration(seconds: 3));
       }
     });
   }
 
   void stopRest() {
     restRunning.value = false;
+    restSeconds.value = restTotalSeconds.value;
     _restTimer?.cancel();
   }
 

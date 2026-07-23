@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/goals/views/goals_screen.dart';
 import '../../features/home/views/home_screen.dart';
+import '../../features/nutrition/views/nutrition_screen.dart';
 import '../../features/onboarding/views/onboarding_screen.dart';
 import '../../features/profile/views/profile_screen.dart';
 import '../../features/progress/views/progress_screen.dart';
@@ -22,6 +23,7 @@ abstract class AppRoutes {
   static const addWorkout = '/add-workout';
   static const goals = '/goals';
   static const progress = '/progress';
+  static const nutrition = '/nutrition';
   static const reports = '/reports';
   static const profile = '/profile';
   static const settings = '/settings';
@@ -57,6 +59,10 @@ abstract class AppRoutes {
           return AddWorkoutScreen(workoutId: extra?['workoutId'] as int?);
         },
       ),
+      GoRoute(
+        path: goals,
+        builder: (context, state) => const GoalsScreen(),
+      ),
       ShellRoute(
         builder: (context, state, child) => MainScaffold(child: child),
         routes: [
@@ -71,9 +77,9 @@ abstract class AppRoutes {
                 const NoTransitionPage(child: WorkoutsScreen()),
           ),
           GoRoute(
-            path: goals,
+            path: nutrition,
             pageBuilder: (context, state) =>
-                const NoTransitionPage(child: GoalsScreen()),
+                const NoTransitionPage(child: NutritionScreen()),
           ),
           GoRoute(
             path: progress,

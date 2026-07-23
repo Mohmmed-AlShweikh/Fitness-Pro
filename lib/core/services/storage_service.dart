@@ -25,7 +25,7 @@ class StorageService extends GetxService {
   bool get isProfileSetup => _prefs.getBool('profile_setup') ?? false;
   Future<void> setProfileSetup() => _prefs.setBool('profile_setup', true);
 
-  // Daily goals (simple counters reset daily)
+  // Daily goals — reset daily
   String get lastResetDate => _prefs.getString('last_reset_date') ?? '';
   Future<void> setLastResetDate(String date) =>
       _prefs.setString('last_reset_date', date);
@@ -37,10 +37,32 @@ class StorageService extends GetxService {
   Future<void> setDailyWater(double liters) =>
       _prefs.setDouble('daily_water', liters);
 
+  // Water glasses (8 per day goal, each = 0.25 L)
+  int get dailyWaterGlasses => _prefs.getInt('daily_water_glasses') ?? 0;
+  Future<void> setDailyWaterGlasses(int glasses) {
+    _prefs.setDouble('daily_water', glasses * 0.25);
+    return _prefs.setInt('daily_water_glasses', glasses);
+  }
+
   int get dailyCaloriesConsumed =>
       _prefs.getInt('daily_calories_consumed') ?? 0;
   Future<void> setDailyCaloriesConsumed(int cal) =>
       _prefs.setInt('daily_calories_consumed', cal);
+
+  // Streak tracking
+  int get workoutStreak => _prefs.getInt('workout_streak') ?? 0;
+  Future<void> setWorkoutStreak(int days) =>
+      _prefs.setInt('workout_streak', days);
+
+  String get lastWorkoutDate => _prefs.getString('last_workout_date') ?? '';
+  Future<void> setLastWorkoutDate(String date) =>
+      _prefs.setString('last_workout_date', date);
+
+  // Achievements unlocked (comma-separated keys)
+  String get unlockedAchievements =>
+      _prefs.getString('unlocked_achievements') ?? '';
+  Future<void> setUnlockedAchievements(String keys) =>
+      _prefs.setString('unlocked_achievements', keys);
 
   Future<void> clearAll() => _prefs.clear();
 }
