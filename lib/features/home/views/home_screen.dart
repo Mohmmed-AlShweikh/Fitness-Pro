@@ -19,8 +19,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.find<HomeController>();
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return RefreshIndicator(
       onRefresh: c.loadTodayData,
       child: CustomScrollView(
@@ -178,9 +176,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12.h),
                   Obx(() => TodayWorkoutCard(
-                        workouts: c.todayWorkouts,
+                        workouts: c.todayWorkouts.toList(growable: false),
                         onAdd: () => context.push(AppRoutes.addWorkout),
-
+                      )),
 
                   SizedBox(height: 24.h),
 
@@ -349,7 +347,8 @@ class _StatCard extends StatelessWidget {
             SizedBox(height: 4.h),
             Text(
               label,
-              style: TextStyle(fontSize: 10.sp, color: color, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: 10.sp, color: color, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -442,8 +441,8 @@ class _WaterTracker extends StatelessWidget {
                     color: waterColor,
                     borderRadius: BorderRadius.circular(10.r),
                   ),
-                  child: Icon(Icons.add_rounded,
-                      color: Colors.white, size: 16.sp),
+                  child:
+                      Icon(Icons.add_rounded, color: Colors.white, size: 16.sp),
                 ),
               ),
             ],
@@ -531,13 +530,13 @@ class _QuickActionsGrid extends StatelessWidget {
           icon: Icons.flag_rounded,
           label: 'goals'.tr,
           color: AppColors.accent,
-          onTap: () => context.go(AppRoutes.goals),
+          onTap: () => context.push(AppRoutes.goals),
         ),
         _QAItem(
           icon: Icons.restaurant_rounded,
           label: 'nutrition'.tr,
           color: AppColors.warning,
-          onTap: () => context.go(AppRoutes.nutrition),
+          onTap: () => context.push(AppRoutes.nutrition),
         ),
         _QAItem(
           icon: Icons.bar_chart_rounded,

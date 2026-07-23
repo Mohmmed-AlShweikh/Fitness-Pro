@@ -74,9 +74,14 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   }
 
   Future<void> _save() async {
+    if (_isSaving) return;
+
     if (_titleCtrl.text.trim().isEmpty) {
-      Get.snackbar('Error', 'Please enter a workout name',
-          snackPosition: SnackPosition.BOTTOM);
+     ScaffoldMessenger.of(context).showSnackBar(
+  const SnackBar(
+    content: Text('Please enter a workout name'),
+  ),
+);
       return;
     }
     setState(() => _isSaving = true);
@@ -88,17 +93,18 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
       duration: int.tryParse(_durationCtrl.text) ?? 30,
       calories: int.tryParse(_caloriesCtrl.text) ?? 200,
       date: DateTime.now(),
-      exercises: List.from(_exercises),
+      exercises: List<ExerciseModel>.from(_exercises),
     );
 
     await Get.find<WorkoutController>().saveWorkout(workout);
 
+    if (!mounted) return;
     setState(() => _isSaving = false);
     Get.snackbar('✅', 'workout_saved'.tr,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: AppColors.accent.withValues(alpha: 0.9),
         colorText: Colors.white);
-    if (mounted) Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   @override

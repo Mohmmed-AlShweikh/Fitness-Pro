@@ -8,8 +8,6 @@ import '../../app/theme/app_colors.dart';
 import '../../features/home/controllers/home_controller.dart';
 import '../../features/nutrition/controllers/nutrition_controller.dart';
 import '../../features/nutrition/models/meal_model.dart';
-import '../../features/progress/controllers/progress_controller.dart';
-import '../../features/progress/models/progress_model.dart';
 
 class QuickLogSheet extends StatelessWidget {
   const QuickLogSheet({super.key});
@@ -151,7 +149,8 @@ class QuickLogSheet extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
         title: Text('log_steps'.tr),
         content: TextField(
           controller: ctrl,
@@ -164,8 +163,7 @@ class QuickLogSheet extends StatelessWidget {
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: Text('cancel'.tr)),
+              onPressed: () => Navigator.pop(ctx), child: Text('cancel'.tr)),
           FilledButton(
             onPressed: () {
               final v = int.tryParse(ctrl.text) ?? 0;

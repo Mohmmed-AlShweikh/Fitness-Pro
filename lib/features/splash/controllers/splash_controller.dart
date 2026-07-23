@@ -5,9 +5,9 @@ import '../../../app/routes/app_routes.dart';
 import '../../../core/services/storage_service.dart';
 
 class SplashController extends GetxController {
-
   void navigate(BuildContext context) async {
     await Future.delayed(const Duration(milliseconds: 2200));
+    if (!context.mounted) return;
 
     final storage = Get.find<StorageService>();
 

@@ -65,8 +65,7 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: 4.h),
                   Text(
                     user.fitnessGoal.tr,
-                    style:
-                        TextStyle(color: Colors.white70, fontSize: 14.sp),
+                    style: TextStyle(color: Colors.white70, fontSize: 14.sp),
                   ),
                 ],
               ),
@@ -83,8 +82,10 @@ class ProfileScreen extends StatelessWidget {
               childAspectRatio: 1.1,
               children: [
                 _InfoTile('your_age'.tr, '${user.age}', 'yrs'),
-                _InfoTile('your_height'.tr, '${user.height.toStringAsFixed(0)}', 'cm'.tr),
-                _InfoTile('your_weight'.tr, '${user.weight.toStringAsFixed(1)}', 'kg'.tr),
+                _InfoTile(
+                    'your_height'.tr, user.height.toStringAsFixed(0), 'cm'.tr),
+                _InfoTile(
+                    'your_weight'.tr, user.weight.toStringAsFixed(1), 'kg'.tr),
               ],
             ),
             SizedBox(height: 16.h),
@@ -224,8 +225,7 @@ class ProfileScreen extends StatelessWidget {
                     child: TextField(
                         controller: ageCtrl,
                         keyboardType: TextInputType.number,
-                        decoration:
-                            InputDecoration(labelText: 'your_age'.tr))),
+                        decoration: InputDecoration(labelText: 'your_age'.tr))),
                 SizedBox(width: 10.w),
                 Expanded(
                     child: TextField(

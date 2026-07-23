@@ -30,21 +30,15 @@ class SplashScreen extends StatelessWidget {
         ),
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               Container(
-                width: 110.r,
-                height: 110.r,
+                width: 220.r,
+                height: 220.r,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(28.r),
+                 shape: BoxShape.circle
                 ),
-                child: Icon(
-                  Icons.fitness_center_rounded,
-                  size: 52.sp,
-                  color: Colors.white,
-                ),
+                child: Image.asset('assets/images/fitness.png'),
               )
                   .animate()
                   .scale(

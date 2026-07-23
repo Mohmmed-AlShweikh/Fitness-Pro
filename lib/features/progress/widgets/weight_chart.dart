@@ -13,16 +13,50 @@ class WeightChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (entries.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    if (entries.length == 1) {
+      final entry = entries.first;
+      return AppCard(
+        child: SizedBox(
+          height: 160.h,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.monitor_weight_rounded,
+                    color: AppColors.primary, size: 36.sp),
+                SizedBox(height: 10.h),
+                Text(
+                  '${entry.weight.toStringAsFixed(1)} kg',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  '${entry.date.day}/${entry.date.month}/${entry.date.year}',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     final spots = entries.asMap().entries.map((e) {
       return FlSpot(e.key.toDouble(), e.value.weight);
     }).toList();
 
-    final minY =
-        (entries.map((e) => e.weight).reduce((a, b) => a < b ? a : b) - 2)
-            .floorToDouble();
-    final maxY =
-        (entries.map((e) => e.weight).reduce((a, b) => a > b ? a : b) + 2)
-            .ceilToDouble();
+    final weights = entries.map((e) => e.weight).toList(growable: false);
+    final lowest = weights.reduce((a, b) => a < b ? a : b);
+    final highest = weights.reduce((a, b) => a > b ? a : b);
+    final padding = lowest == highest ? 2.0 : 1.5;
+    final minY = (lowest - padding).floorToDouble();
+    final maxY = (highest + padding).ceilToDouble();
 
     return AppCard(
       padding: EdgeInsets.fromLTRB(12.w, 16.h, 16.w, 8.h),
@@ -30,6 +64,10 @@ class WeightChart extends StatelessWidget {
         height: 200.h,
         child: LineChart(
           LineChartData(
+            minX: 0,
+            maxX: (entries.length - 1).toDouble(),
+            minY: minY,
+            maxY: maxY,
             gridData: FlGridData(
               show: true,
               drawVerticalLine: false,
@@ -73,19 +111,18 @@ class WeightChart extends StatelessWidget {
                   },
                 ),
               ),
-              topTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false)),
-              rightTitles: const AxisTitles(
-                  sideTitles: SideTitles(showTitles: false)),
+              topTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
             ),
             borderData: FlBorderData(show: false),
-            minY: minY,
-            maxY: maxY,
             lineBarsData: [
               LineChartBarData(
                 spots: spots,
                 isCurved: true,
-                gradient: const LinearGradient(colors: AppColors.gradientPrimary),
+                gradient:
+                    const LinearGradient(colors: AppColors.gradientPrimary),
                 barWidth: 3,
                 isStrokeCapRound: true,
                 dotData: FlDotData(

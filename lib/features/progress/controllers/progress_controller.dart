@@ -16,24 +16,27 @@ class ProgressController extends GetxController {
 
   Future<void> loadEntries() async {
     isLoading.value = true;
+    await _reloadEntries();
+    isLoading.value = false;
+  }
+
+  Future<void> _reloadEntries() async {
     final all = await _db.getProgress();
     all.sort((a, b) => a.date.compareTo(b.date));
-    entries.value = all;
-    isLoading.value = false;
+    entries.assignAll(all);
   }
 
   Future<void> addEntry(ProgressModel entry) async {
     await _db.saveProgress(entry);
-    await loadEntries();
+    await _reloadEntries();
   }
 
   Future<void> deleteEntry(int id) async {
     await _db.deleteProgress(id);
-    await loadEntries();
+    await _reloadEntries();
   }
 
-  double? get latestWeight =>
-      entries.isEmpty ? null : entries.last.weight;
+  double? get latestWeight => entries.isEmpty ? null : entries.last.weight;
   double? get lowestWeight => entries.isEmpty
       ? null
       : entries.map((e) => e.weight).reduce((a, b) => a < b ? a : b);

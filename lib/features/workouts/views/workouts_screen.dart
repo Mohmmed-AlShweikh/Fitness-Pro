@@ -32,12 +32,6 @@ class WorkoutsScreen extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text('my_workouts'.tr),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add_rounded),
-              onPressed: () => context.go(AppRoutes.addWorkout),
-            ),
-          ],
         ),
         body: SafeArea(
           child: Column(
@@ -120,7 +114,7 @@ class WorkoutsScreen extends StatelessWidget {
                       icon: Icons.fitness_center_rounded,
                       message: 'no_workouts'.tr,
                       actionLabel: 'add_workout'.tr,
-                      onAction: () => context.go(AppRoutes.addWorkout),
+                      onAction: () => context.push(AppRoutes.addWorkout),
                     );
                   }
 

@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/routes/app_routes.dart';
 import '../../app/theme/app_colors.dart';
-import '../../features/home/controllers/home_controller.dart';
 import 'quick_log_sheet.dart';
 
 class MainScaffold extends StatelessWidget {
@@ -65,9 +64,7 @@ class MainScaffold extends StatelessWidget {
           ],
           border: Border(
             top: BorderSide(
-              color: isDark
-                  ? AppColors.darkDivider
-                  : AppColors.lightDivider,
+              color: isDark ? AppColors.darkDivider : AppColors.lightDivider,
               width: 0.5,
             ),
           ),
@@ -174,8 +171,7 @@ class _NavItem extends StatelessWidget {
                 label,
                 style: TextStyle(
                   fontSize: 10.sp,
-                  fontWeight:
-                      isActive ? FontWeight.w700 : FontWeight.w400,
+                  fontWeight: isActive ? FontWeight.w700 : FontWeight.w400,
                   color: isActive ? activeColor : inactiveColor,
                   letterSpacing: isActive ? 0.2 : 0,
                 ),

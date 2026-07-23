@@ -33,10 +33,11 @@ class _ExerciseTileState extends State<ExerciseTile> {
   @override
   void initState() {
     super.initState();
-    _nameCtrl = TextEditingController(text: widget.exercise.name ?? '');
-    _setsCtrl = TextEditingController(text: (widget.exercise.sets ?? 3).toString());
-    _repsCtrl = TextEditingController(text: (widget.exercise.reps ?? 10).toString());
-    _weightCtrl = TextEditingController(text: (widget.exercise.weight ?? 0).toString());
+    _nameCtrl = TextEditingController(text: widget.exercise.name);
+    _setsCtrl = TextEditingController(text: widget.exercise.sets.toString());
+    _repsCtrl = TextEditingController(text: widget.exercise.reps.toString());
+    _weightCtrl =
+        TextEditingController(text: widget.exercise.weight.toString());
   }
 
   void _notify() {
@@ -59,12 +60,16 @@ class _ExerciseTileState extends State<ExerciseTile> {
                 Expanded(
                   child: Text(
                     '${'exercises'.tr} ${widget.index + 1}',
-                    style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w600, color: AppColors.primary),
+                    style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primary),
                   ),
                 ),
                 GestureDetector(
                   onTap: widget.onRemove,
-                  child: Icon(Icons.close_rounded, size: 18.sp, color: AppColors.error),
+                  child: Icon(Icons.close_rounded,
+                      size: 18.sp, color: AppColors.error),
                 ),
               ],
             ),

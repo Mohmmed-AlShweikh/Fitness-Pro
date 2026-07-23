@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../app/theme/app_colors.dart';
 import '../../../shared/widgets/custom_button.dart';
-import '../../../shared/widgets/empty_state.dart';
 import '../../../shared/widgets/section_header.dart';
 import '../../../shared/widgets/stat_tile.dart';
 import '../controllers/progress_controller.dart';
@@ -23,19 +22,25 @@ class ProgressScreen extends StatelessWidget {
         if (c.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
+        final entryCount = c.entries.length;
+        final entries = c.entries.toList(growable: false);
+        final latestWeight = c.latestWeight;
+        final lowestWeight = c.lowestWeight;
+        final highestWeight = c.highestWeight;
+
         return RefreshIndicator(
           onRefresh: c.loadEntries,
           child: ListView(
             padding: EdgeInsets.all(16.r),
             children: [
               // Summary stats
-              if (c.entries.isNotEmpty) ...[
+              if (entryCount > 0) ...[
                 Row(
                   children: [
                     Expanded(
                       child: StatTile(
                         label: 'Current',
-                        value: c.latestWeight?.toStringAsFixed(1) ?? '-',
+                        value: latestWeight?.toStringAsFixed(1) ?? '-',
                         unit: 'kg'.tr,
                         icon: Icons.monitor_weight_rounded,
                         color: AppColors.primary,
@@ -45,7 +50,7 @@ class ProgressScreen extends StatelessWidget {
                     Expanded(
                       child: StatTile(
                         label: 'Lowest',
-                        value: c.lowestWeight?.toStringAsFixed(1) ?? '-',
+                        value: lowestWeight?.toStringAsFixed(1) ?? '-',
                         unit: 'kg'.tr,
                         icon: Icons.arrow_downward_rounded,
                         color: AppColors.accent,
@@ -55,7 +60,7 @@ class ProgressScreen extends StatelessWidget {
                     Expanded(
                       child: StatTile(
                         label: 'Highest',
-                        value: c.highestWeight?.toStringAsFixed(1) ?? '-',
+                        value: highestWeight?.toStringAsFixed(1) ?? '-',
                         unit: 'kg'.tr,
                         icon: Icons.arrow_upward_rounded,
                         color: AppColors.secondary,
@@ -68,23 +73,18 @@ class ProgressScreen extends StatelessWidget {
 
               // Weight chart
               SectionHeader(title: 'weight_chart'.tr),
-              SizedBox(height: 12.h),
-              c.entries.isEmpty
-                  ? EmptyState(
-                      icon: Icons.show_chart_rounded,
-                      message: 'no_progress'.tr,
-                      actionLabel: 'add_progress'.tr,
-                      onAction: () => _showAddSheet(context, c),
-                    )
-                  : WeightChart(entries: c.entries),
+              SizedBox(height: 15.h),
+              entryCount == 0
+                  ? _ProgressEmptyCard(onAdd: () => _showAddSheet(context, c))
+                  : WeightChart(entries: entries),
 
               SizedBox(height: 24.h),
 
               // History list
-              if (c.entries.isNotEmpty) ...[
+              if (entryCount > 0) ...[
                 SectionHeader(title: 'History'),
                 SizedBox(height: 12.h),
-                ...c.entries.reversed.take(10).map((e) => _ProgressTile(
+                ...entries.reversed.take(10).map((e) => _ProgressTile(
                       entry: e,
                       onDelete: () => c.deleteEntry(e.id),
                     )),
@@ -132,7 +132,8 @@ class ProgressScreen extends StatelessWidget {
             TextField(
                 controller: fatCtrl,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'body_fat'.tr, suffixText: '%')),
+                decoration:
+                    InputDecoration(labelText: 'body_fat'.tr, suffixText: '%')),
             SizedBox(height: 10.h),
             TextField(
                 controller: notesCtrl,
@@ -140,13 +141,23 @@ class ProgressScreen extends StatelessWidget {
             SizedBox(height: 20.h),
             GradientButton(
               text: 'save'.tr,
-              onTap: () {
+              onTap: () async {
+                final weight = double.tryParse(weightCtrl.text.trim());
+                if (weight == null || weight <= 0) {
+                  Get.snackbar('Error', 'Please enter a valid weight',
+                      snackPosition: SnackPosition.BOTTOM);
+                  return;
+                }
+
                 final entry = ProgressModel(
-                  weight: double.tryParse(weightCtrl.text) ?? 70,
-                  bodyFat: double.tryParse(fatCtrl.text),
-                  notes: notesCtrl.text.isEmpty ? null : notesCtrl.text,
+                  weight: weight,
+                  bodyFat: double.tryParse(fatCtrl.text.trim()),
+                  notes: notesCtrl.text.trim().isEmpty
+                      ? null
+                      : notesCtrl.text.trim(),
                 );
-                c.addEntry(entry);
+                await c.addEntry(entry);
+                if (!ctx.mounted) return;
                 Navigator.pop(ctx);
                 Get.snackbar('✅', 'progress_saved'.tr,
                     snackPosition: SnackPosition.BOTTOM);
@@ -154,6 +165,44 @@ class ProgressScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ProgressEmptyCard extends StatelessWidget {
+  final VoidCallback onAdd;
+
+  const _ProgressEmptyCard({required this.onAdd});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primary;
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(24.r),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: color.withOpacity(0.12)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.show_chart_rounded, size: 48.sp, color: color),
+          SizedBox(height: 12.h),
+          Text(
+            'no_progress'.tr,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          SizedBox(height: 16.h),
+          FilledButton(
+            onPressed: onAdd,
+            child: Text('add_progress'.tr),
+          ),
+        ],
       ),
     );
   }

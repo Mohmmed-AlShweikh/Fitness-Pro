@@ -69,7 +69,7 @@ class ReportsScreen extends StatelessWidget {
                                 ? 'generating_report'.tr
                                 : 'preview_report'.tr,
                             colors: [
-                              Colors.white,
+                              Colors.black,
                               Colors.white.withOpacity(0.85)
                             ],
                             isLoading: c.isGenerating.value,
