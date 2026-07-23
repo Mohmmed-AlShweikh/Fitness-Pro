@@ -174,13 +174,13 @@ class HomeScreen extends StatelessWidget {
                   SectionHeader(
                     title: 'today_workout'.tr,
                     actionLabel: 'workouts'.tr,
-                    onAction: () => context.go(AppRoutes.workouts),
+                    onAction: () => context.push(AppRoutes.workouts),
                   ),
                   SizedBox(height: 12.h),
                   Obx(() => TodayWorkoutCard(
                         workouts: c.todayWorkouts,
                         onAdd: () => context.push(AppRoutes.addWorkout),
-                      )).animate(delay: 150.ms).fadeIn(duration: 350.ms),
+
 
                   SizedBox(height: 24.h),
 
